@@ -1,0 +1,22 @@
+{
+  "id": 12345,
+  "name": "test-repo",
+  "full_name": "testowner/test-repo",
+  "owner": {"login": "testowner"},
+  "html_url": "https://github.com/testowner/test-repo",
+  "description": "A test repository",
+  "language": "Python",
+  "stargazers_count": 1500,
+  "forks_count": 200,
+  "subscribers_count": 50,
+  "open_issues_count": 25,
+  "created_at": "2023-01-15T10:00:00Z",
+  "pushed_at": "2026-02-01T14:30:00Z",
+  "archived": false,
+  "default_branch": "main",
+  "license": {
+    "key": "mit",
+    "name": "MIT License",
+    "spdx_id": "MIT"
+  }
+}

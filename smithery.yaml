@@ -1,0 +1,5 @@
+name: repocrunch
+description: Analyze GitHub repos into structured JSON
+version: 0.1.0
+transport: stdio
+command: repocrunch mcp
