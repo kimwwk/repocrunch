@@ -54,6 +54,24 @@ FRAMEWORK_MAP: dict[str, str] = {
     "github.com/gorilla/mux": "Gorilla Mux",
     "github.com/go-chi/chi": "Chi",
     "github.com/beego/beego": "Beego",
+    # Java / Kotlin
+    "org.springframework.boot:spring-boot-starter-web": "Spring Boot",
+    "io.quarkus:quarkus-core": "Quarkus",
+    "io.micronaut:micronaut-core": "Micronaut",
+    "io.vertx:vertx-core": "Vert.x",
+    "com.typesafe.play:play_2.13": "Play Framework",
+    "com.typesafe.play:play_3": "Play Framework",
+    "io.ktor:ktor-server-core": "Ktor",
+    # Ruby
+    "rails": "Rails",
+    "sinatra": "Sinatra",
+    "hanami": "Hanami",
+    # C / C++
+    "Boost": "Boost",
+    "Qt5": "Qt",
+    "Qt6": "Qt",
+    "OpenCV": "OpenCV",
+    "SFML": "SFML",
 }
 
 # dependency name → test framework label
@@ -73,6 +91,17 @@ TEST_FRAMEWORK_MAP: dict[str, str] = {
     "tap": "tap",
     # Rust (built-in, detected from tree)
     # Go (built-in testing package)
+    # Java / Kotlin
+    "junit": "JUnit",
+    "org.junit.jupiter:junit-jupiter": "JUnit 5",
+    "org.junit.jupiter:junit-jupiter-api": "JUnit 5",
+    "junit:junit": "JUnit 4",
+    "org.mockito:mockito-core": "Mockito",
+    "org.testng:testng": "TestNG",
+    # Ruby
+    "rspec": "RSpec",
+    "rspec-rails": "RSpec",
+    "minitest": "Minitest",
 }
 
 # Files in tree that indicate test framework

@@ -7,9 +7,13 @@ from typing import Any
 from repocrunch.client import GitHubClient
 from repocrunch.detection import FRAMEWORK_MAP
 from repocrunch.models import TechStack
+from repocrunch.parsers.build_gradle import parse_build_gradle
 from repocrunch.parsers.cargo_toml import parse_cargo_toml
+from repocrunch.parsers.cmakelists import parse_cmakelists
+from repocrunch.parsers.gemfile import parse_gemfile
 from repocrunch.parsers.go_mod import parse_go_mod
 from repocrunch.parsers.package_json import parse_package_json
+from repocrunch.parsers.pom_xml import parse_pom_xml
 from repocrunch.parsers.pyproject_toml import parse_pyproject_toml
 from repocrunch.parsers.requirements_txt import parse_requirements_txt
 
@@ -27,6 +31,8 @@ LANGUAGE_RUNTIME: dict[str, str] = {
     "C#": ".NET",
     "Swift": "Swift",
     "Dart": "Dart",
+    "C": "C",
+    "C++": "C++",
 }
 
 
@@ -66,6 +72,12 @@ def _detect_pm_from_tree(paths: set[str], language: str | None) -> str | None:
         return "cargo"
     if "go.sum" in paths:
         return "go"
+    if "Gemfile.lock" in paths:
+        return "bundler"
+    if "gradlew" in paths or "gradlew.bat" in paths:
+        return "gradle"
+    if ".mvn" in paths or any(p.startswith(".mvn/") for p in paths):
+        return "maven"
     return None
 
 
@@ -128,6 +140,44 @@ async def extract_tech_stack(
             all_direct.extend(parse_go_mod(content))
             parsed = True
 
+    elif primary_language in ("Java", "Kotlin"):
+        # Prefer whichever manifest exists; try pom.xml first, then gradle
+        if "pom.xml" in paths:
+            content = await client.get_file_content(owner, repo, "pom.xml")
+            if content:
+                result = parse_pom_xml(content)
+                all_direct.extend(result.direct)
+                all_dev.extend(result.test)
+                pm = "maven"
+                parsed = True
+        if not parsed:
+            for gradle_file in ("build.gradle", "build.gradle.kts"):
+                if gradle_file in paths:
+                    content = await client.get_file_content(owner, repo, gradle_file)
+                    if content:
+                        result = parse_build_gradle(content)
+                        all_direct.extend(result.direct)
+                        all_dev.extend(result.test)
+                        pm = "gradle"
+                        parsed = True
+                        break
+
+    elif primary_language == "Ruby" and "Gemfile" in paths:
+        content = await client.get_file_content(owner, repo, "Gemfile")
+        if content:
+            result = parse_gemfile(content)
+            all_direct.extend(result.direct)
+            all_dev.extend(result.dev)
+            pm = "bundler"
+            parsed = True
+
+    elif primary_language in ("C", "C++") and "CMakeLists.txt" in paths:
+        content = await client.get_file_content(owner, repo, "CMakeLists.txt")
+        if content:
+            all_direct.extend(parse_cmakelists(content))
+            pm = "cmake"
+            parsed = True
+
     # Fallback: try all known manifests if nothing matched
     if not parsed:
         for manifest, parser_fn in [
@@ -136,6 +186,11 @@ async def extract_tech_stack(
             ("requirements.txt", lambda c: (parse_requirements_txt(c), [])),
             ("Cargo.toml", lambda c: (parse_cargo_toml(c).direct, parse_cargo_toml(c).dev)),
             ("go.mod", lambda c: (parse_go_mod(c), [])),
+            ("pom.xml", lambda c: (parse_pom_xml(c).direct, parse_pom_xml(c).test)),
+            ("build.gradle", lambda c: (parse_build_gradle(c).direct, parse_build_gradle(c).test)),
+            ("build.gradle.kts", lambda c: (parse_build_gradle(c).direct, parse_build_gradle(c).test)),
+            ("Gemfile", lambda c: (parse_gemfile(c).direct, parse_gemfile(c).dev)),
+            ("CMakeLists.txt", lambda c: (parse_cmakelists(c), [])),
         ]:
             if manifest in paths:
                 content = await client.get_file_content(owner, repo, manifest)
