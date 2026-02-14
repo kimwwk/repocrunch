@@ -6,19 +6,28 @@ Give it a repo, get back tech stack, dependencies, architecture, health metrics,
 
 ## Quick Start
 
-Requires **Python 3.11+** and [uv](https://github.com/astral-sh/uv).
+Requires **Python 3.11+**.
 
 ```bash
-# Install
+pip install repocrunch
+repocrunch analyze fastapi/fastapi --pretty
+```
+
+That's it. Also works with `uv`:
+
+```bash
+uvx repocrunch analyze astral-sh/uv --pretty
+```
+
+### Install from source
+
+```bash
 git clone https://github.com/kimwwk/repocrunch.git
 cd repocrunch
 uv venv && uv pip install -e ".[all]"
-
-# Analyze a repo
-repocrunch analyze astral-sh/uv --pretty
 ```
 
-Or install just what you need:
+Install just what you need:
 
 ```bash
 uv pip install -e "."          # Library only (httpx + pydantic)
