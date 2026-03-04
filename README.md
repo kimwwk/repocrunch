@@ -4,6 +4,10 @@ Analyze any public GitHub repository into structured JSON. No AI, no LLMs — fu
 
 Give it a repo, get back tech stack, dependencies, architecture, health metrics, and security signals in clean, consistent JSON. Use it as a Python library, CLI tool, REST API, or MCP server.
 
+<a href="https://glama.ai/mcp/servers/@kimwwk/repo-crunch">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@kimwwk/repo-crunch/badge" alt="RepoCrunch MCP server" />
+</a>
+
 ## Quick Start
 
 Requires **Python 3.11+**.
