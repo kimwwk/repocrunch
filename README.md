@@ -39,7 +39,7 @@ uv pip install -e ".[all]"     # Everything
 
 ### Set a GitHub Token (optional)
 
-Without a token you get 60 API calls/hour. With one, 5,000/hour.
+Without a token you get 60 API calls/hour. With one, 5,000/hour. A token also lets you analyze **private repositories** you have access to.
 
 ```bash
 export GITHUB_TOKEN=ghp_...
@@ -176,7 +176,6 @@ Not yet implemented, but planned:
 - **Secrets regex scanning** — detect leaked API keys, tokens, passwords in the file tree
 - **Architecture type classification** — library vs. application vs. framework
 - **API rate limiting** — per-key throttling for the REST API
-- **Private repo support** — authenticated analysis of private repositories
 - **npm/npx package** — `npx repocrunch analyze owner/repo`
 - **Vulnerability scanning** — known CVE detection in dependencies
 - **Comparison mode** — side-by-side analysis of multiple repos
