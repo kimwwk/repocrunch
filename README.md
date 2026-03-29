@@ -4,6 +4,10 @@ Analyze any public GitHub repository into structured JSON. No AI, no LLMs — fu
 
 Give it a repo, get back tech stack, dependencies, architecture, health metrics, and security signals in clean, consistent JSON. Use it as a Python library, CLI tool, REST API, or MCP server.
 
+## Hosted deployment
+
+A hosted deployment is available on [Fronteir AI](https://fronteir.ai/mcp/kimwwk-repocrunch).
+
 ## Quick Start
 
 Requires **Python 3.11+**.
