@@ -1,5 +1,9 @@
 # RepoCrunch
 
+[![PyPI](https://img.shields.io/pypi/v/repocrunch.svg)](https://pypi.org/project/repocrunch/)
+[![Python](https://img.shields.io/pypi/pyversions/repocrunch.svg)](https://pypi.org/project/repocrunch/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Analyze any public GitHub repository into structured JSON. No AI, no LLMs — fully deterministic.
 
 Give it a repo, get back tech stack, dependencies, architecture, health metrics, and security signals in clean, consistent JSON. Use it as a Python library, CLI tool, REST API, or MCP server.
@@ -180,8 +184,9 @@ Not yet implemented, but planned:
 - **Vulnerability scanning** — known CVE detection in dependencies
 - **Comparison mode** — side-by-side analysis of multiple repos
 - **Historical tracking** — track how a repo's health changes over time
-- **PyPI / npm publishing** — `pip install repocrunch` / `npm install repocrunch`
 - **Platform deployments** — Apify Store, Smithery, mcp.so, RapidAPI
+
+> Already shipped: RepoCrunch is published on [PyPI](https://pypi.org/project/repocrunch/) — `pip install repocrunch`.
 
 ## License
 
