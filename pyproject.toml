@@ -40,8 +40,9 @@ dev = [
 repocrunch = "repocrunch.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/repocrunch/repocrunch"
-Repository = "https://github.com/repocrunch/repocrunch"
+Homepage = "https://github.com/kimwwk/repocrunch"
+Repository = "https://github.com/kimwwk/repocrunch"
+Issues = "https://github.com/kimwwk/repocrunch/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/repocrunch"]
